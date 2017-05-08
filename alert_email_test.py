@@ -1,5 +1,5 @@
-import smtplib
 #-*- coding: utf-8 -*-
+import smtplib
 
 envoi = 'albacristo30.gmail.com'						#Expéditeur de l'email
 destination = 'albacristo30@gmail.com'					#Destinataire de l'email

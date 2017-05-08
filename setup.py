@@ -1,9 +1,19 @@
-import sqlite3 as lite
+#!/usr/bin/python
+#-*- coding: utf-8 -*-
 
-con = lite.connect('BDD.db')
+import os
+import sqlite3 as sqlite
 
-with con:
-	cur = con.cursor()
-	cur.execute("CREATE TABLE infosys (nomMachine text, date datetime, nbUsers int, utilisation double, memoireTotal int, memoireUtilise int, memoireDispo int, nombreDisk int, nomDisk text, utilisationRacine double, nbProcessus int, PRIMARY KEY (nomMachine, date));")
-	cur.execute("CREATE TABLE cert (date datetime PRIMARY KEY, titre text);")
-	cur.execute("CREATE TABLE users (nomMachine text, date datetime, nomUsers text, PRIMARY KEY (nomMachine, date));")
+
+def create_db():
+	con = sqlite.connect('local/sys.db')
+	with con:
+		cur = con.cursor()
+		cur.execute("CREATE TABLE infosys (date datetime, hostname text, processes int, users int, cpu double, ram double, disk double, PRIMARY KEY (hostname, date));")
+		cur.execute("CREATE TABLE certalert (date datetime PRIMARY KEY, title text);")
+
+
+if not os.path.exists('local'):
+	os.makedirs('local')
+create_db()
+

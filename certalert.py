@@ -9,6 +9,6 @@ feed = feedparser.parse('http://www.cert.ssi.gouv.fr/site/cert-fr_alerte.rss')
 
 if not feed.entries:
 	print "No entry. No connection ?"
-	exit(0)
+	exit(1)
 
 print feed.entries[0].title
