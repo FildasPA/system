@@ -25,7 +25,7 @@ Vous pouvez ajouter dans le fichier de configuration:
 """
 
 
-def get_system_informations():
+def get_system_information():
     infos = {}
     infos['hostname']  = socket.gethostname()
     infos['processes'] = len(psutil.pids())
@@ -33,7 +33,6 @@ def get_system_informations():
     infos['cpu']       = psutil.cpu_percent()
     infos['ram']       = psutil.virtual_memory()[2]
     infos['disk']      = psutil.disk_usage('/')[3]
-    infos['disks']     = len(psutil.disk_partitions())
     infos['swap']      = psutil.swap_memory()[2]
     return infos
 
@@ -83,7 +82,7 @@ def print_informations(infos, porcelain):
 
 
 def collect():
-    infos = get_system_informations()
+    infos = get_system_information()
     print_informations(infos, args['porcelain'])
 
 
@@ -92,7 +91,7 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--color', action="store_true", default=False,
                         help="Affiche des couleurs")
     parser.add_argument('-p', '--porcelain', action="store_true", default=False,
-                        help="Formate la sortie pour être facilement utilisée par un    script")
+                        help="Formate la sortie pour être facilement utilisée par un script")
     args = vars(parser.parse_args())
 
     if args['color']:
