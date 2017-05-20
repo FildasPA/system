@@ -1,24 +1,17 @@
 #!/usr/bin/python
 #coding: utf-8
 
-# Envoie les informations systèmes au serveur
-# Pour cela, envoie une requête POST
+# Envoie les informations systèmes au serveur à l'aide d'une requête POST
 
-import ast
-import urllib2
 import requests
-from bs4 import BeautifulSoup
-from collect import get_system_information
+from sensors import get_system_information
 
-url = 'http://localhost:5000/info'
-data = get_system_information()
-r = requests.post(url, data = data)
-print r.text
-# print r.content()
-# print data
-# print r
-# content = urllib2.urlopen(url).read()
-# soup = BeautifulSoup(content, 'lxml')
-# info = ast.literal_eval(soup.get_text())
+def send_info(url, data):
+	r = requests.post(url, data = data)
+	print r.text
 
-# print info
+
+if __name__ == "__main__":
+	url = 'http://localhost:5000/sendinfo'
+	data = get_system_information()
+	send_info(url, data)

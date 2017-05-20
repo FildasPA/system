@@ -9,7 +9,7 @@ import ConfigParser
 import re
 import argparse
 import os.path
-from Colors import *
+# from utils.colors import *
 
 
 DESCRIPTION = """
@@ -94,7 +94,7 @@ if __name__ == "__main__":
                         help="Formate la sortie pour être facilement utilisée par un script")
     args = vars(parser.parse_args())
 
-    if args['color']:
-        Colors.activate()
+    # if args['color']:
+        # Colors.activate()
 
     collect()
