@@ -23,6 +23,7 @@ Vous pouvez ajouter dans le fichier de configuration:
 - disk
 - swap
 """
+SECTION = 'Informations'
 
 
 def get_system_information():
@@ -38,16 +39,16 @@ def get_system_information():
 
 
 def write_config_file(filename, config):
-    section = 'Informations'
-    config.add_section(section)
-    config.set(section, "hostname", "Machine")
-    config.set(section, "separator", "  ----------------------------------------------")
-    config.set(section, "processes", "Nombre de processus")
-    config.set(section, "users", "Nombre d'utilisateurs connectes")
-    config.set(section, "cpu", "CPU")
-    config.set(section, "ram", "RAM")
-    config.set(section, "disk", "Disque")
+    config.add_section(SECTION)
+    config.set(SECTION, "hostname", "Machine")
+    config.set(SECTION, "separator", "  ----------------------------------------------")
+    config.set(SECTION, "processes", "Nombre de processus")
+    config.set(SECTION, "users", "Nombre d'utilisateurs connectes")
+    config.set(SECTION, "cpu", "CPU")
+    config.set(SECTION, "ram", "RAM")
+    config.set(SECTION, "disk", "Disque")
     config.write(open(filename, 'w'))
+    return config
 
 
 def read_config():
@@ -56,15 +57,16 @@ def read_config():
     config = ConfigParser.ConfigParser()
     if not os.path.isfile(filename):
         write_config_file(filename, config)
-    config.read(filename)
-    if 'Informations' not in config.sections():
-        write_config_file(filename, config)
+    else:
+        config.read(filename)
+        if SECTION not in config.sections():
+            write_config_file(filename, config)
     return config
 
 
 def print_informations(infos, porcelain):
     config = read_config()
-    for option in config.items('Informations'):
+    for option in config.items(SECTION):
         if option[0] == 'separator' and not porcelain:
             print re.sub('"', '', option[1])
             continue

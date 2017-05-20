@@ -16,4 +16,3 @@ def create_db():
 if not os.path.exists('local'):
 	os.makedirs('local')
 create_db()
-

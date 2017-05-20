@@ -17,6 +17,7 @@ def catch_info():
         content = dict(request.form)
         for i in content:
             content[i] = str(content[i][0])
+        print str(content)
         process_info.process_info(content)
     else:
         content = "Error: you must send a POST request"
