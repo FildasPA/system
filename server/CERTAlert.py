@@ -30,6 +30,8 @@ def get_last_alert():
 	if not feed.entries:
 		print "No entry. No connection ?"
 		exit(1)
+	print feed['feed']['updated']
+	print feed['feed']['updated_parsed']
 	return feed.entries[0]
 
 
@@ -39,7 +41,7 @@ if __name__ == '__main__':
 	temps = time.localtime()
 	now = "{year}-{month}-{day} {hour}:{minu}:{sec}".format(year=temps.tm_year, month=temps.tm_mon, day=temps.tm_mday, hour=temps.tm_hour, minu=temps.tm_min, sec=temps.tm_sec)
 
-	print entry['title']
+	# print entry['title']
 
 	# La sauvegarde ne fonctionne pas bien (l'entrée est toujours ajoutée, même si elle y est déjà)
 	# print "now:      " + str(entry)

@@ -5,6 +5,7 @@ import re
 import ConfigParser
 import argparse
 
+
 def get_last_info(hostname):
 	con = sqlite.connect(Config.DB_FILE)
 	cur = con.cursor()
@@ -27,7 +28,8 @@ def get_hostnames():
     con = sqlite.connect(Config.DB_FILE)
     cur = con.cursor()
     return cur.execute("SELECT DISTINCT(hostname) FROM infosys ORDER BY hostname;").fetchall()
-    
+
+
 def print_informations(infos, porcelain):
     config = read_config()
     for option in config.items(SECTION):
@@ -48,6 +50,8 @@ def print_informations(infos, porcelain):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=DESCRIPTION)
+    parser.add_argument('-p', '--porcelain', action="store_true", default=False,
+                        help="Formate la sortie pour être facilement utilisée par un script")
     parser.add_argument('-c', '--color', action="store_true", default=False,
                         help="Affiche des couleurs")
     parser.add_argument('-p', '--porcelain', action="store_true", default=False,
