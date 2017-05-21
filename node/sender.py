@@ -4,7 +4,7 @@
 # Envoie les informations systèmes au serveur à l'aide d'une requête POST
 
 import requests
-from probes import get_system_information
+import probes
 
 
 def send_info(url, data):
@@ -13,5 +13,5 @@ def send_info(url, data):
 
 
 if __name__ == "__main__":
-	data = get_system_information()
+	data = probes.get_system_information()
 	send_info("http://localhost:5000/sendinfo", data)

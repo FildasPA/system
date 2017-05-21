@@ -1,6 +1,8 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
+# Récupère les informations systèmes
+
 import psutil
 import socket
 import subprocess
