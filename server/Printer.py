@@ -22,6 +22,5 @@ def get_last_info(hostname):
 
 def get_hostnames():
     con = sqlite.connect(Config.DB_FILE)
-    with con:
-        cur = con.cursor()
-        res = cur.execute("SELECT DISTINCT(hostname) FROM infosys ORDER BY hostname;").fetchall()
+    cur = con.cursor()
+    return cur.execute("SELECT DISTINCT(hostname) FROM infosys ORDER BY hostname;").fetchall()
