@@ -5,7 +5,6 @@ import os.path
 import sqlite3 as sqlite
 import utils
 import CrisisChecker
-# from mail import send_mails
 import Config
 
 

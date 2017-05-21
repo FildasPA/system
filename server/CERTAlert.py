@@ -6,6 +6,7 @@
 import feedparser
 import re
 import datetime
+import time
 import sqlite3 as sqlite
 import Config
 import utils
@@ -29,25 +30,20 @@ def get_last_alert():
 	if not feed.entries:
 		print "No entry. No connection ?"
 		exit(1)
-	return feed.entries[0].title
+	return feed.entries[0]
 
 
 if __name__ == '__main__':
-	entry_title = get_last_alert()
+	entry = get_last_alert()
 	max_date = get_max_date()
-	now = datetime.datetime.now()
-	# now = utils.get_current_time()
-	print str(now)
-	print str(max_date)
-	if now > max_date:
-		print ">"
-	else:
-		print "<"
-	# if max_date == None:
-	# 	save_entry(now, entry_title)
-	# else:
-	# 	max_date = re.sub(':', ' ', re.sub('-', ' ', max_date))
- #        print max_date
- #        max_date = datetime.datetime.strptime(max_date, '%Y %m %d %H %M %S')
- #        if now > max_date:
-	# 		save_entry(date, entry_title)
+	temps = time.localtime()
+	now = "{year}-{month}-{day} {hour}:{minu}:{sec}".format(year=temps.tm_year, month=temps.tm_mon, day=temps.tm_mday, hour=temps.tm_hour, minu=temps.tm_min, sec=temps.tm_sec)
+
+	print entry['title']
+
+	# La sauvegarde ne fonctionne pas bien (l'entrée est toujours ajoutée, même si elle y est déjà)
+	# print "now:      " + str(entry)
+	# print "max_date: " + str(max_date)
+	# if now > max_date:
+	# 	print "save"
+	# 	save_entry(now, entry.title)
