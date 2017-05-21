@@ -1,4 +1,6 @@
+#!/usr/bin/python
 #-*- coding: utf-8 -*-
+
 import smtplib
 
 envoi = 'albacristo30.gmail.com'						#Expéditeur de l'email

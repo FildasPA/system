@@ -1,17 +1,19 @@
 #!/usr/bin/python
-#coding: utf-8
+#-*- coding: utf-8 -*-
 
+# Génère un graphe représentant l'utilisation des ressources d'une marchine donnée en fonction du temps
 
 import pygal
 import re
 from datetime import datetime
 import sqlite3 as sqlite
+import Config
 
 
 def get_info(hostname, start, end):
     """Récupère les infos de la bdd, les formate, les ajoute
     dans un dictionnaire de listes avant de le retourner"""
-    con = sqlite.connect('local/sys.db')
+    con = sqlite.connect(Config.CONFIG_FILE)
     cur = con.cursor()
     res = cur.execute("SELECT * FROM infosys WHERE (hostname = :hostname AND date >= :start AND date < :end) ORDER BY date;", {'hostname': hostname, 'start': start, 'end': end}).fetchall()
 
@@ -38,7 +40,7 @@ def get_info(hostname, start, end):
     return info
 
 
-def create_graph(filename, hostname, info, categories):
+def generate_graph(filename, hostname, info, categories):
     datetimeline  = pygal.DateTimeLine(x_label_rotation=35, title=hostname)
 
     for category in categories:
@@ -59,6 +61,6 @@ if __name__ == '__main__':
         exit(1)
 
     filename = '{}_{}-{}_p.svg'.format(hostname, info['dates'][0], info['dates'][-1])
-    create_graph(filename, hostname, info, ['cpu','ram','disk','swap'])
+    generate_graph(filename, hostname, info, ['cpu','ram','disk','swap'])
     filename = '{}_{}-{}.svg'.format(hostname, info['dates'][0], info['dates'][-1])
-    create_graph(filename, hostname, info, ['processes','users'])
+    generate_graph(filename, hostname, info, ['processes','users'])

@@ -1,21 +1,24 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-
 import os.path
 import sqlite3 as sqlite
 import utils
-from check_crisis import check_crisis
+import CrisisChecker
+# from mail import send_mails
+import Config
 
 
 def process_info(info):
     save_info(info)
-    check_crisis(info)
+    crises = CrisisChecker.get_crises(info)
+    # if crises:
+    #     send_crises_to_mail(crises)
 
 
 def save_info(info):
     """Save information in database"""
-    con = sqlite.connect('local/sys.db')
+    con = sqlite.connect(Config.DB_FILE)
     with con:
         cur = con.cursor()
         t = utils.get_current_time()

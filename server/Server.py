@@ -6,21 +6,22 @@
 
 from flask import Flask
 from flask import request
-import process_info
+import InfoProcessing
+import Config
 
 app = Flask(__name__)
 
 
-@app.route('/sendinfo', methods=['POST'])
+@app.route('/' + Config.SERVER_SEND_INFO, methods=['POST'])
 def catch_info():
-    if request.method == 'POST':
-        content = dict(request.form)
-        for i in content:
-            content[i] = str(content[i][0])
-        print str(content)
-        process_info.process_info(content)
-    else:
+    if request.method != 'POST':
         content = "Error: you must send a POST request"
+    else:
+        info = dict(request.form)
+        for i in info:
+            info[i] = str(info[i][0])
+        InfoProcessing.process_info(info)
+        content = "Information received"
     return str(content)
 
 
