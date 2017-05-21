@@ -12,8 +12,8 @@ import Config
 def process_info(info):
     save_info(info)
     crises = CrisisChecker.get_crises(info)
-    # if crises:
-    #     send_crises_to_mail(crises)
+    if crises:
+        SendMail.send_mails(crises)
 
 
 def save_info(info):
