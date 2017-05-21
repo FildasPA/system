@@ -25,9 +25,9 @@ def send_mail(section, crises):
 	server.login(config.get(section, 'sender'), config.get(section, 'password'))
 
 	crises_messages = ''
-	for key, value in crise.iteritems():
+	for key, value in crises.iteritems():
 		crises_messages += "{} : {}\n".format(key, value)
-	message = config.get(section, 'message') + crises
+	message = config.get(section, 'message') + crises_messages
 	# Envoi du message de l'expéditeur vers le destinataire
 	server.sendmail(config.get(section, 'sender'), config.get(section, 'receiver'), message)
 	# Déconnexion
